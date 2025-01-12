@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const conexion = require("./baseDatos/conexionBD")
 
 var morgan = require("morgan")
 var fs = require("fs")
@@ -54,5 +55,5 @@ app.use("/api/v1/carrerasMaterias", v1CarrerasMateria)
 app.use("/api/v1/matricular", v1Matricular)
 
 app.listen(process.env.PORT, () => {
-  console.log("API Corriendoo 💥 " + process.env.PORT)
+  console.log(`Servidor corriendo en puerto ${process.env.PORT}`)
 })
