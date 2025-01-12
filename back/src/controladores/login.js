@@ -2,10 +2,8 @@ const { Router } = require("express")
 const router = Router()
 const registroDB = require("../baseDatos/loginBD")
 const jwt = require("jsonwebtoken")
-
 const bcrypt = require("bcryptjs")
-
-const TOKEN_SECRET = process.env.TOKEN_SECRET
+const { TOKEN_SECRET } = require("../config/jwt")
 
 const iniciarSesion = async (req, res) => {
   const { correoElectronico, clave } = req.body
@@ -16,7 +14,10 @@ const iniciarSesion = async (req, res) => {
   }
 
   try {
+    console.log("correoElectronico", correoElectronico)
+    console.log("clave", clave)
     const usuarios = await registroDB.buscarUsuarioPorCorreo(correoElectronico)
+    console.log("usuarios", usuarios)
 
     if (usuarios.length === 0) {
       res.status(401).json({ estado: "FALLA", msj: "Usuario no encontrado" })
@@ -33,11 +34,13 @@ const iniciarSesion = async (req, res) => {
         return
       }
 
+      console.log("resultado", resultado)
+
       if (resultado) {
         const name = usuario.name
         const token = jwt.sign(
           { correoElectronico: usuario.correoElectronico },
-          TOKEN_SECRET || "dgjng48",
+          TOKEN_SECRET,
           { expiresIn: "1d" }
         )
         res.cookie("token", token, { httpOnly: true })

@@ -1,4 +1,5 @@
 const mysql = require("mysql2/promise")
+const seedDatabase = require("./seedDB")
 
 const initializeDatabase = async () => {
   try {
@@ -93,6 +94,7 @@ const initializeDatabase = async () => {
         `)
 
     console.log("Base de datos inicializada correctamente")
+    await seedDatabase()
     await connection.end()
   } catch (error) {
     console.error("Error al inicializar la base de datos:", error)
