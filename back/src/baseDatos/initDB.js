@@ -8,6 +8,7 @@ const initializeDatabase = async () => {
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
+      port: process.env.DB_PORT,
     })
 
     // Crear base de datos si no existe
@@ -94,7 +95,9 @@ const initializeDatabase = async () => {
         `)
 
     console.log("Base de datos inicializada correctamente")
-    await seedDatabase()
+    if (process.env.INSERT_DB_DATA === "true") {
+      await seedDatabase()
+    }
     await connection.end()
   } catch (error) {
     console.error("Error al inicializar la base de datos:", error)
