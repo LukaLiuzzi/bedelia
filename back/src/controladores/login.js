@@ -43,7 +43,7 @@ const iniciarSesion = async (req, res) => {
           TOKEN_SECRET,
           { expiresIn: "1d" }
         )
-        res.cookie("token", token, { httpOnly: true })
+        res.cookie("token", token, { httpOnly: true, secure: true })
         res
           .status(200)
           .json({ estado: "ok", correoElectronico: usuario.correoElectronico })
