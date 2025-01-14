@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import logo from '../../img/logo-uner.png';
-import axios from 'axios';
-import { API_URL } from "../../constantes";
-import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
-import { useUser } from '../../context/UserContext';
+import React, { useEffect, useState } from "react"
+import logo from "../../img/logo-uner.png"
+import axios from "axios"
+import { API_URL } from "../../constantes"
+import { useNavigate } from "react-router-dom"
+import swal from "sweetalert"
+import { useUser } from "../../context/UserContext"
 
 function Login() {
-
   const [values, setValues] = useState({
-    correoElectronico: '',
-    clave: '',
+    correoElectronico: "",
+    clave: "",
   })
-  const navegar = useNavigate();
-  const {user, login} = useUser();
-  
+  const navegar = useNavigate()
+  const { user, login } = useUser()
+
   useEffect(() => {
     if (user) {
-      navegar('/bedelia');
+      navegar("/bedelia")
     }
-  }, [user]);
-  
+  }, [user])
+
   const manejarLogin = (e) => {
     e.preventDefault()
-    login(values);
+    login(values)
   }
-
-
 
   return (
     <div className="login-container">
@@ -38,20 +35,37 @@ function Login() {
         <form onSubmit={manejarLogin}>
           <div className="input-container">
             <label htmlFor="usuario">Usuario:</label>
-            <input onChange={e => setValues({ ...values, correoElectronico: e.target.value })} type="email" name="correoElectronico" required />
+            <input
+              defaultValue="admin@test.com"
+              onChange={(e) =>
+                setValues({ ...values, correoElectronico: e.target.value })
+              }
+              type="email"
+              name="correoElectronico"
+              required
+            />
           </div>
           <div className="input-container">
             <label htmlFor="contrasena">Contraseña:</label>
-            <input onChange={e => setValues({ ...values, clave: e.target.value })} type="password" name="clave" required />
+            <input
+              defaultValue="password123"
+              onChange={(e) => setValues({ ...values, clave: e.target.value })}
+              type="password"
+              name="clave"
+              required
+            />
           </div>
           <div className="input-container">
-            <a href="/registro">Crear cuenta</a> | <a href="#">Olvidé mi contraseña</a>
+            <a href="/registro">Crear cuenta</a> |{" "}
+            <a href="#">Olvidé mi contraseña</a>
           </div>
-          <button type='submit' name='iniciar-sesion'>Acceder</button>
+          <button type="submit" name="iniciar-sesion">
+            Acceder
+          </button>
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
