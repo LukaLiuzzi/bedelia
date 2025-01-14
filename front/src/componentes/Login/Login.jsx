@@ -8,8 +8,8 @@ import { useUser } from "../../context/UserContext"
 
 function Login() {
   const [values, setValues] = useState({
-    correoElectronico: "",
-    clave: "",
+    correoElectronico: "admin@test.com",
+    clave: "password123",
   })
   const navegar = useNavigate()
   const { user, login } = useUser()
